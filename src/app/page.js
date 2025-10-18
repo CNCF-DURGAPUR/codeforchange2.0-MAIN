@@ -70,7 +70,7 @@ export default function Home() {
                   { label: "Home", href: "#home" },
                   { label: "About", href: "#about" },
                   { label: "Venue", href: "#venue" },
-                  { label: "Speakers", href: "#speakers" },
+                  { label: "Mentor", href: "#mentors-judges" },
                   { label: "Sponsors", href: "#sponsors" },
                   { label: "Team", href: "/team" },
 
