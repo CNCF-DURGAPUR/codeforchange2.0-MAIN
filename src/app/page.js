@@ -5,6 +5,7 @@ import Dock from "./Dock";
 import ProfileCard from "./ProfileCard";
 import { HoverEffect } from "../ui/card-hover-effect";
 import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
+import { FocusCard } from "../ui/focus-card";
 
 import { useState } from "react";
 import { motion } from "motion/react";
@@ -348,102 +349,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Speakers Section */}
-      <section id="speakers" className="relative z-20 py-16 will-change-transform">
+      {/* Mentors and Judges Section */}
+      <section id="mentors-judges" className="relative z-20 py-16 will-change-transform">
         <div className="container mx-auto px-4">
-          {/* Section Header (Speakers) */}
+          {/* Section Header */}
           <div className="relative text-center mb-12">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-              Speakers
+              Mentors and Judges
             </h2>
             <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
           </div>
 
-          <div className="max-w-6xl mx-auto">
-            <HoverEffect
-              items={[
-                {
-                  title: "Coming Soon",
-                  description: "Keynote Speaker - Technology & Innovation",
-                  image: (
-                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
-                      <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif' }}>CS</span>
-                    </div>
-                  ),
-                },
-                {
-                  title: "Coming Soon",
-                  description: "Guest Speaker - Cloud Native & DevOps",
-                  image: (
-                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
-                      <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif' }}>CS</span>
-                    </div>
-                  ),
-                },
-                {
-                  title: "Coming Soon",
-                  description: "Industry Expert - Open Source & Community",
-                  image: (
-                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
-                      <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif' }}>CS</span>
-                    </div>
-                  ),
-                },
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Organizers Section merged visually under Speakers */}
-      <section id="organizers" className="relative z-20 py-8 -mt-6">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-            {/* Organizer 1 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-            />
-            {/* Organizer 2 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-            />
-            {/* Organizer 3 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-            />
-            {/* Organizer 4 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-            />
-          </div>
+          <FocusCard
+            cards={[
+              {
+                description: "Mentor - Technology & Innovation",
+              },
+              {
+                description: "Judge - Cloud Native & DevOps",
+              },
+              {
+                description: "Mentor - Open Source & Community",
+              },
+              {
+                description: "Judge - Software Development",
+              },
+              {
+                description: "Mentor - AI & Machine Learning",
+              },
+              {
+                description: "Judge - Web Development",
+              },
+            ]}
+          />
         </div>
       </section>
 

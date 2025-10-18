@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import ProfileCard from "../ProfileCard";
+import { FocusCard } from "../../ui/focus-card";
 import { useState } from "react";
 
 
@@ -11,42 +11,28 @@ export default function TeamPage() {
 
   const organizers = [
     {
-      name: "Coming Soon",
-      title: "",
-      handle: "",
-      status: "",
-      avatarUrl: "",
+      description: "Lead Organizer",
     },
     {
-      name: "Coming Soon",
-      title: "",
-      handle: "",
-      status: "",
-      avatarUrl: "",
+      description: "Co-Organizer",
     },
     {
-      name: "Coming Soon",
-      title: "",
-      handle: "",
-      status: "",
-      avatarUrl: "",
+      description: "Event Coordinator",
     },
   ];
 
   const coreMembers = [
     {
-      name: "Coming Soon",
-      title: "",
-      handle: "",
-      status: "",
-      avatarUrl: "",
+      description: "Technical Lead",
     },
     {
-      name: "Coming Soon",
-      title: "",
-      handle: "",
-      status: "",
-      avatarUrl: "",
+      description: "Community Manager",
+    },
+    {
+      description: "Marketing Head",
+    },
+    {
+      description: "Logistics Coordinator",
     },
   ];
 
@@ -136,21 +122,7 @@ export default function TeamPage() {
             <h3 className="text-3xl font-bold text-blue-800 text-center mb-8" style={{ fontFamily: 'Michroma, sans-serif' }}>
               Organizers
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-              {organizers.map((m, i) => (
-                <ProfileCard
-                  key={i}
-                  name={m.name}
-                  title={m.title}
-                  handle={m.handle}
-                  status={m.status}
-                  avatarUrl={m.avatarUrl}
-                  showUserInfo={true}
-                  enableTilt={true}
-                  enableMobileTilt={false}
-                />
-              ))}
-            </div>
+            <FocusCard cards={organizers} />
           </div>
 
           {/* Core Members Section */}
@@ -158,21 +130,7 @@ export default function TeamPage() {
             <h3 className="text-3xl font-bold text-blue-800 text-center mb-8" style={{ fontFamily: 'Michroma, sans-serif' }}>
               Core Team
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-              {coreMembers.map((m, i) => (
-                <ProfileCard
-                  key={i}
-                  name={m.name}
-                  title={m.title}
-                  handle={m.handle}
-                  status={m.status}
-                  avatarUrl={m.avatarUrl}
-                  showUserInfo={true}
-                  enableTilt={true}
-                  enableMobileTilt={false}
-                />
-              ))}
-            </div>
+            <FocusCard cards={coreMembers} />
           </div>
         </div>
       </main>
