@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Dock from "./Dock";
-import ProfileCard from "./ProfileCard";
 import { HoverEffect } from "../ui/card-hover-effect";
 import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 import { FocusCard } from "../ui/focus-card";
