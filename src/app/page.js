@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import ScrollVelocity from "./ScrollVelocity";
-import ScrollVelocityContent from "./ScrollVelocityContent";
 import Dock from "./Dock";
 import ProfileCard from "./ProfileCard";
+import { HoverEffect } from "../ui/card-hover-effect";
+import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 
 import { useState } from "react";
 import { motion } from "motion/react";
@@ -192,11 +192,26 @@ export default function Home() {
               </section>
 
               {/* Marquee Section */}
-                <section className="relative z-30 py-2 bg-blue-600 text-white overflow-hidden -mt-10 md:-mt-16">
-                  <ScrollVelocity
-                    texts={["SEE YOU SOON!!!!"]}
-                    velocity={80}
-                    className="text-xl font-bold"
+                <section className="relative z-30 py-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white overflow-hidden -mt-10 md:-mt-16">
+                  <InfiniteMovingCards
+                    items={[
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
+                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
+                    ]}
+                    direction="left"
+                    speed="slow"
+                    pauseOnHover={false}
+                    className="[mask-image:none]"
                   />
                 </section>
 
@@ -248,42 +263,39 @@ export default function Home() {
 
             {/* Right Side - Photo Slideshows */}
             <div className="space-y-6">
-              {/* First Row - Smooth scroll (left) */}
-              <div className="overflow-hidden py-4">
-                <ScrollVelocityContent
-                  velocity={40}
-                  gap="gap-4"
+              {/* First Row - Scroll Left */}
+              <div className="overflow-hidden">
+                <InfiniteMovingCards
                   items={[
-                    <img key="1" src="/DSC_0343.JPG" alt="Community Event 1" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="2" src="/DSC_0350.JPG" alt="Community Event 2" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="3" src="/DSC_0361.JPG" alt="Community Event 3" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="4" src="/DSC_0378.JPG" alt="Community Event 4" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="5" src="/IMG_1023.JPG" alt="Community Event 5" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="6" src="/IMG_0976.JPG" alt="Community Event 6" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="7" src="/IMG_1028.JPG" alt="Community Event 7" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="8" src="/IMG_1031.JPG" alt="Community Event 8" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="9" src="/IMG_1034.JPG" alt="Community Event 9" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="10" src="/IMG_1035.JPG" alt="Community Event 10" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="11" src="/IMG_1036.JPG" alt="Community Event 11" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
-                    <img key="12" src="/IMG_1037.JPG" alt="Community Event 12" className="h-36 w-52 object-cover rounded-lg shadow-md" />,
+                    { content: <img src="/DSC_0343.JPG" alt="Community Event 1" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/DSC_0350.JPG" alt="Community Event 2" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/DSC_0361.JPG" alt="Community Event 3" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/DSC_0378.JPG" alt="Community Event 4" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/IMG_1023.JPG" alt="Community Event 5" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/IMG_0976.JPG" alt="Community Event 6" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
                   ]}
+                  direction="left"
+                  speed="normal"
+                  pauseOnHover={true}
+                  className="[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]"
                 />
               </div>
 
-              {/* Second Row - Smooth scroll (right) */}
-              <div className="overflow-hidden py-4">
-                <ScrollVelocityContent
-                  velocity={-40}
-                  gap="gap-4"
+              {/* Second Row - Scroll Right */}
+              <div className="overflow-hidden">
+                <InfiniteMovingCards
                   items={[
-                    <img key="w1" src="/IMG_1008.JPG" alt="Workshop 1" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
-                    <img key="w2" src="/IMG_1018.JPG" alt="Workshop 2" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
-                    <img key="w3" src="/IMG_1022.JPG" alt="Workshop 3" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
-                    <img key="w4" src="/IMG_E0970.JPG" alt="Workshop 4" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
-                    <img key="w5" src="/IMG_1051.JPG" alt="Workshop 5" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
-                    <img key="w6" src="/WhatsApp Image 2025-07-05 at 18.22.37_93b1af7b.jpg" alt="Workshop 6" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
-                    <img key="w7" src="/IMG_1038.JPG" alt="Workshop 7" className="h-36 w-52 object-cover rounded-lg shadow-md" loading="lazy" decoding="async" />,
+                    { content: <img src="/IMG_1008.JPG" alt="Workshop 1" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/IMG_1018.JPG" alt="Workshop 2" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/IMG_1022.JPG" alt="Workshop 3" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/IMG_E0970.JPG" alt="Workshop 4" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/IMG_1051.JPG" alt="Workshop 5" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
+                    { content: <img src="/WhatsApp Image 2025-07-05 at 18.22.37_93b1af7b.jpg" alt="Workshop 6" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
                   ]}
+                  direction="right"
+                  speed="normal"
+                  pauseOnHover={true}
+                  className="[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]"
                 />
               </div>
             </div>
@@ -346,39 +358,38 @@ export default function Home() {
             </h2>
             <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-            {/* Speaker Card 1 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-            />
-            {/* Speaker Card 2 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-            />
-            {/* Speaker Card 3 */}
-            <ProfileCard
-              name="Coming Soon"
-              title=""
-              handle=""
-              status=""
-              avatarUrl=""
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
+
+          <div className="max-w-6xl mx-auto">
+            <HoverEffect
+              items={[
+                {
+                  title: "Coming Soon",
+                  description: "Keynote Speaker - Technology & Innovation",
+                  image: (
+                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                      <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif' }}>CS</span>
+                    </div>
+                  ),
+                },
+                {
+                  title: "Coming Soon",
+                  description: "Guest Speaker - Cloud Native & DevOps",
+                  image: (
+                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                      <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif' }}>CS</span>
+                    </div>
+                  ),
+                },
+                {
+                  title: "Coming Soon",
+                  description: "Industry Expert - Open Source & Community",
+                  image: (
+                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                      <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Michroma, sans-serif' }}>CS</span>
+                    </div>
+                  ),
+                },
+              ]}
             />
           </div>
         </div>
@@ -450,66 +461,32 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Sponsors Grid */}
-          <div className="max-w-6xl mx-auto">
-            {/* Row 1 - 5 sponsors */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
-              {[
-                { name: "GitHub", logo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" },
-                { name: "CORE", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=CORE" },
-                { name: "ChainIDE", logo: "https://via.placeholder.com/120x60/4A90E2/FFFFFF?text=ChainIDE" },
-                { name: "CIVIC", logo: "https://via.placeholder.com/120x60/6C5CE7/FFFFFF?text=CIVIC" },
-                { name: "Devfolio", logo: "https://via.placeholder.com/120x60/3742FA/FFFFFF?text=Devfolio" },
-              ].map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Row 2 - 5 sponsors */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
-              {[
-                { name: "ETHIndia", logo: "https://via.placeholder.com/120x60/FF6B6B/FFFFFF?text=ETHIndia" },
-                { name: "STARKNET", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=STARKNET" },
-                { name: "PHAROS", logo: "https://via.placeholder.com/120x60/4A90E2/FFFFFF?text=PHAROS" },
-                { name: "APTOS", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=APTOS" },
-                { name: "Rise In", logo: "https://via.placeholder.com/120x60/A855F7/FFFFFF?text=Rise+In" },
-              ].map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Row 3 - 5 sponsors */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
-              {[
-                { name: "edugraph", logo: "https://via.placeholder.com/120x60/FF6B6B/FFFFFF?text=edugraph" },
-                { name: "Filecoin", logo: "https://via.placeholder.com/120x60/0090FF/FFFFFF?text=Filecoin" },
-                { name: "BUILDERS", logo: "https://via.placeholder.com/120x60/4A90E2/FFFFFF?text=BUILDERS" },
-                { name: "Aethir", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=Aethir" },
-                { name: "akomi", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=akomi" },
-              ].map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Row 4 - 4 sponsors (centered) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {[
-                { name: "XYZ", logo: "https://via.placeholder.com/120x60/6C5CE7/FFFFFF?text=XYZ" },
-                { name: "Merchanzi", logo: "https://via.placeholder.com/120x60/00D084/FFFFFF?text=Merchanzi" },
-                { name: "SNU", logo: "https://via.placeholder.com/120x60/FF6B6B/FFFFFF?text=SNU" },
-                { name: "MLH", logo: "https://via.placeholder.com/120x60/FF6B35/FFFFFF?text=MLH" },
-              ].map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
+          {/* Sponsors Grid with Hover Effect */}
+          <div className="max-w-7xl mx-auto">
+            <HoverEffect
+              className="grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+              items={[
+                { title: "GitHub", description: "Version Control & Collaboration Platform" },
+                { title: "CORE", description: "Blockchain Infrastructure" },
+                { title: "ChainIDE", description: "Web3 Development Environment" },
+                { title: "Devfolio", description: "Hackathon Management Platform" },
+                { title: "CIVIC", description: "Identity Verification Solutions" },
+                { title: "ETHIndia", description: "Ethereum Community & Events" },
+                { title: "STARKNET", description: "Layer 2 Scaling Solution" },
+                { title: "PHAROS", description: "Blockchain Analytics" },
+                { title: "APTOS", description: "Next-Gen Blockchain" },
+                { title: "Rise In", description: "Career Development Platform" },
+                { title: "edugraph", description: "Educational Technology" },
+                { title: "Filecoin", description: "Decentralized Storage Network" },
+                { title: "BUILDERS", description: "Developer Community" },
+                { title: "Aethir", description: "Cloud Computing Infrastructure" },
+                { title: "akomi", description: "Digital Solutions Provider" },
+                { title: "XYZ", description: "Innovation Partner" },
+                { title: "Merchanzi", description: "E-commerce Solutions" },
+                { title: "SNU", description: "Academic Partner" },
+                { title: "MLH", description: "Major League Hacking" },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -526,43 +503,32 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Partners Grid (same structure as sponsors) */}
-          <div className="max-w-6xl mx-auto">
-            {/* Row 1 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
-              {new Array(5).fill(0).map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Row 2 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
-              {new Array(5).fill(0).map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Row 3 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
-              {new Array(5).fill(0).map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Row 4 (centered, 4 cols) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {new Array(4).fill(0).map((_, index) => (
-                <div key={index} className="rounded-xl p-6 border border-blue-300/50 shadow-sm bg-white/10 backdrop-blur-md hover:bg-white/15 transition-colors duration-300 flex items-center justify-center min-h-[100px]">
-                  <span className="text-blue-900 font-semibold uppercase tracking-wide" style={{ fontFamily: 'Michroma, sans-serif' }}>Coming Soon</span>
-                </div>
-              ))}
-            </div>
+          {/* Partners Grid with Hover Effect */}
+          <div className="max-w-7xl mx-auto">
+            <HoverEffect
+              className="grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+              items={[
+                { title: "Partner 1", description: "Community Support & Collaboration" },
+                { title: "Partner 2", description: "Educational Resources" },
+                { title: "Partner 3", description: "Technical Mentorship" },
+                { title: "Partner 4", description: "Innovation Hub" },
+                { title: "Partner 5", description: "Developer Advocacy" },
+                { title: "Partner 6", description: "Open Source Community" },
+                { title: "Partner 7", description: "Tech Ecosystem" },
+                { title: "Partner 8", description: "Student Programs" },
+                { title: "Partner 9", description: "Industry Connect" },
+                { title: "Partner 10", description: "Skill Development" },
+                { title: "Partner 11", description: "Research Collaboration" },
+                { title: "Partner 12", description: "Startup Ecosystem" },
+                { title: "Partner 13", description: "Cloud Infrastructure" },
+                { title: "Partner 14", description: "DevOps Tools" },
+                { title: "Partner 15", description: "AI/ML Platform" },
+                { title: "Partner 16", description: "Data Analytics" },
+                { title: "Partner 17", description: "Cybersecurity" },
+                { title: "Partner 18", description: "IoT Solutions" },
+                { title: "Partner 19", description: "Blockchain Network" },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -637,9 +603,27 @@ export default function Home() {
             const row2 = data.slice(2, 6).map((t, i) => card(t, `r2-${i}`));
 
             return (
-              <div className="space-y-8 max-w-none">
-                <ScrollVelocityContent items={row1} velocity={40} gap="gap-6" />
-                <ScrollVelocityContent items={row2} velocity={-40} gap="gap-6" />
+              <div className="space-y-8">
+                <InfiniteMovingCards
+                  items={data.slice(0, 4).map(t => ({
+                    quote: t.quote,
+                    name: t.name,
+                    title: t.role,
+                  }))}
+                  direction="left"
+                  speed="slow"
+                  pauseOnHover={true}
+                />
+                <InfiniteMovingCards
+                  items={data.slice(2, 6).map(t => ({
+                    quote: t.quote,
+                    name: t.name,
+                    title: t.role,
+                  }))}
+                  direction="right"
+                  speed="slow"
+                  pauseOnHover={true}
+                />
               </div>
             );
           })()}

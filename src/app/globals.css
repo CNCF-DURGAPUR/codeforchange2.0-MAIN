@@ -122,3 +122,22 @@ html.scrolling .animate-gradient-y {
   filter: grayscale(0%) opacity(1) contrast(180%) brightness(1.3) saturate(150%);
   mix-blend-mode: normal;
 }
+
+/* Infinite Moving Cards Animation */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+}
+
+/* Pause animation on hover */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}

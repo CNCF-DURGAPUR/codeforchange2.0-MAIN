@@ -26,11 +26,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${michroma.variable} antialiased`}>
-        {/* Client boot for scroll performance helpers */}
-        <div suppressHydrationWarning>
-          {typeof window !== 'undefined' ? require('./AppClientBoot').default() : null}
-        </div>
-
         {children}
       </body>
     </html>
