@@ -30,14 +30,14 @@ const Card = ({ card, index, hovered, setHovered }) => {
     <div
       onMouseEnter={() => setHovered(index)}
       onMouseLeave={() => setHovered(null)}
-      className={`rounded-2xl relative bg-blue-100 border border-blue-300 overflow-hidden h-80 md:h-96 w-full transition-all duration-300 ease-out ${
+      className={`rounded-2xl relative bg-red-900/30 border border-red-500/50 overflow-hidden h-80 md:h-96 w-full transition-all duration-300 ease-out ${
         hovered !== null && hovered !== index ? "blur-sm scale-[0.98]" : ""
       }`}
     >
       {/* Coming Soon Background Text */}
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
         <motion.span
-          className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-blue-900/20 select-none whitespace-nowrap"
+          className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-red-600/20 select-none whitespace-nowrap"
           style={{ fontFamily: 'Michroma, sans-serif' }}
           animate={hovered === index ? { opacity: 1, scale: 1 } : { opacity: 0.5, scale: 0.95 }}
           transition={{ duration: 0.3 }}
@@ -53,7 +53,7 @@ const Card = ({ card, index, hovered, setHovered }) => {
       >
         <div className="w-full">
           {card.description && (
-            <p className="text-sm text-blue-900 font-semibold relative z-20">
+            <p className="text-sm text-red-200 font-semibold relative z-20">
               {card.description}
             </p>
           )}

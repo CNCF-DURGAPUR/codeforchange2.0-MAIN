@@ -3,22 +3,49 @@
 import Image from "next/image";
 import Dock from "./Dock";
 import { HoverEffect } from "../ui/card-hover-effect";
-import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
-import { FocusCard } from "../ui/focus-card";
+import ShinyText from "../ui/ShinyText";
+import TextType from "../ui/TextType";
 
 import { useState } from "react";
 import { motion } from "motion/react";
 
 export default function Home() {
-  const [moreOpen, setMoreOpen] = useState(false);
   const [faqOpenIndex, setFaqOpenIndex] = useState(null);
 
+  const dockItems = [
+    { label: "Home", icon: "Home", href: "#home" },
+    { label: "About", icon: "About", href: "#about" },
+    { label: "Prizes", icon: "Prizes", href: "#prizes" },
+    { label: "Timeline", icon: "Timeline", href: "#mystry-advanture" }, // update section id to id="mystry-advanture"
+    { label: "Tracks", icon: "Tracks", href: "#game-zones" },
+    { label: "Mentors", icon: "Mentors", href: "/team" },
+    { label: "FAQ", icon: "FAQ", href: "#faqs" }, // match section id="faqs"
+  ];
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-indigo-100/40 to-purple-100/30 animate-gradient-x"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-100/20 via-blue-200/30 to-indigo-200/40 animate-gradient-y"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 via-black/40 to-black/30 animate-gradient-x"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-slate-800/20 via-green-800/20 to-black/40 animate-gradient-y"></div>
+
+        {/* Stars Background */}
+        <div className="absolute inset-0 opacity-100">
+          {[...Array(100)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute bg-white rounded-full animate-pulse"
+              style={{
+                width: Math.random() * 3 + 2 + 'px',
+                height: Math.random() * 3 + 2 + 'px',
+                left: Math.random() * 100 + '%',
+                top: Math.random() * 100 + '%',
+                opacity: Math.random() * 0.9 + 0.5,
+                animationDuration: Math.random() * 3 + 2 + 's'
+              }}
+            />
+          ))}
+        </div>
 
         {/* Left Wave */}
         <div className="absolute left-0 top-0 bottom-0 w-40 md:w-56 lg:w-72 opacity-100 z-5">
@@ -43,362 +70,991 @@ export default function Home() {
             priority
           />
         </div>
+
+        {/* Blended Gradient Overlay - Red, Purple, Green Mix */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Top-Left: Purple to Red gradient */}
+          <div className="absolute -top-1/3 -left-1/3 w-2/3 h-2/3 bg-gradient-to-br from-purple-900/35 via-red-900/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+
+          {/* Top-Right: Red to Purple gradient */}
+          <div className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 bg-gradient-to-bl from-red-900/35 via-purple-900/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
+
+          {/* Bottom-Left: Green to Purple gradient */}
+          <div className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 bg-gradient-to-tr from-green-900/15 via-purple-900/12 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s', animationDuration: '4s' }}></div>
+
+          {/* Bottom-Right: Red to Green gradient */}
+          <div className="absolute -bottom-1/3 -right-1/3 w-2/3 h-2/3 bg-gradient-to-tl from-red-900/30 via-green-900/12 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.75s', animationDuration: '4s' }}></div>
+
+          {/* Center: All colors mixed */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-purple-900/20 via-red-900/25 via-green-900/10 to-purple-900/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '4s' }}></div>
+        </div>
       </div>
-      {/* Header (Sticky within Hero only) */}
-      <div className="relative">
-        <header className="sticky top-0 z-40 bg-transparent border-b border-white/20">
-          <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 md:w-16 md:h-16 relative">
-                <Image
-                  src="/LOGO__1_-removebg-preview.png"
-                  alt="Cloud Native Durgapur Logo"
-                  fill
-                  sizes="(min-width: 768px) 4rem, 3rem"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </div>
 
-            {/* Navigation (simple, no gooey effect) */}
-            <nav className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-              <ul className="flex gap-6 text-blue-900">
-                {[
-                  { label: "Home", href: "#home" },
-                  { label: "About", href: "#about" },
-                  { label: "Venue", href: "#venue" },
-                  { label: "Mentor", href: "#mentors-judges" },
-                  { label: "Sponsors", href: "#sponsors" },
-                  { label: "Team", href: "/team" },
-
-                ].map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="font-semibold hover:text-blue-600 transition-colors"
-                      style={{ fontFamily: 'Michroma, sans-serif' }}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-                <li className="relative">
-                  <button
-                    className="font-semibold hover:text-blue-600 transition-colors"
-                    style={{ fontFamily: 'Michroma, sans-serif' }}
-                    onClick={() => setMoreOpen((v) => !v)}
-                    aria-haspopup="true"
-                    aria-expanded={moreOpen}
-                  >
-                    More
-                  </button>
-                  <div
-                    className={`absolute left-0 mt-2 w-56 rounded-xl border border-transparent bg-transparent backdrop-blur-0 shadow-none transition-all duration-200 ${moreOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-                    role="menu"
-                  >
-                    <ul className="py-2 text-blue-900" onClick={() => setMoreOpen(false)}>
-                      <li><a href="#community-partners" className="block px-4 py-2 hover:bg-transparent" role="menuitem" style={{ fontFamily: 'Michroma, sans-serif' }}>Community Partners</a></li>
-                      <li><a href="#testimonials" className="block px-4 py-2 hover:bg-transparent" role="menuitem" style={{ fontFamily: 'Michroma, sans-serif' }}>Testimonials</a></li>
-                      <li><a href="#faqs" className="block px-4 py-2 hover:bg-transparent" role="menuitem" style={{ fontFamily: 'Michroma, sans-serif' }}>FAQs</a></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button className="lg:hidden p-2 text-blue-800">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </header>
-      </div>
+      {/* Dock Navigation - Bottom Center */}
+      <Dock
+        items={dockItems.map((item) => ({
+          ...item,
+          onClick: () => {
+            if (item.href.startsWith("#")) {
+              const element = document.querySelector(item.href);
+              element?.scrollIntoView({ behavior: "smooth" });
+            } else {
+              window.location.href = item.href;
+            }
+          },
+        }))}
+      />
 
       {/* Hero Section */}
-      <section id="home" className="relative z-20 min-h-screen flex items-center justify-center pt-0 -mt-12 md:-mt-20">
-        <div className="container mx-auto px-4 text-center">
-          {/* Bridge Background */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-            <div className="relative w-[90vw] max-w-[1400px] aspect-[14/9] mx-auto">
-              <Image
-                src="/bridge-transparent-background-with-blue-line_545677-12672-removebg-preview.png"
-                alt="Bridge Background"
-                fill
-                sizes="90vw"
-                className="object-contain object-center bridge-enhanced-clear"
-                priority
-              />
-            </div>
-          </div>
+      <section id="home" className="relative z-20 h-screen w-screen flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            backgroundImage: 'url(/hero-bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        ></div>
+        <div className="absolute inset-0 w-full h-full bg-black/50"></div>
 
-          {/* Hero Content */}
-                <div className="relative z-10 max-w-4xl mx-auto">
-                <div className="mb-2">
-                  <span className="inline-block px-8 py-4 bg-blue-100/80 text-blue-800 rounded-full text-2xl md:text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Michroma, sans-serif' }}>
-                  Welcome to
-                  </span>
+        <div className="container mx-auto px-4 relative z-10 flex items-center">
+          {/* Hero Content - Left Side */}
+                <div className="relative z-10 w-1/2">
+
+                {/* Top Line */}
+
+                <div className="flex flex-col justify-center items-center mb-4">
+                  <div className="w-full flex justify-center">
+                    <ShinyText
+                      text="CODE"
+                      speed={5}
+                      hollow={true}
+                      className="text-7xl md:text-8xl lg:text-9xl leading-none"
+                    />
+                  </div>
+                  <div className="w-full flex justify-center">
+                    <ShinyText
+                      text="CRESTZ"
+                      speed={5}
+                      hollow={true}
+                      className="text-7xl md:text-8xl lg:text-9xl leading-none"
+                    />
+                  </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-blue-900 mb-6 leading-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-                  Cloud Native
-                  <span className="block text-blue-700 font-bold">Durgapur</span>
-                </h1>
+
+                
+
+                {/* Bottom Line */}
+
                 <div className="flex justify-center">
                   <motion.button
-                    className="px-8 py-4 bg-white/5 text-blue-700 rounded-xl font-semibold transition-colors duration-300 flex items-center gap-3 font-bold backdrop-blur-sm ring-1 ring-blue-600/30 hover:ring-blue-600/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/60"
+                    className="px-8 py-4 bg-gradient-to-r from-red-600/40 to-red-600/40 text-red-300 rounded-xl font-semibold transition-colors duration-300 font-bold backdrop-blur-sm ring-1 ring-red-500/50 hover:ring-red-400/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400/80"
                     whileHover={{ scale: 1.12 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ type: "spring", mass: 0.1, stiffness: 150, damping: 12 }}
                   >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                  </svg>
-                  <span className="font-bold">Join Discord</span>
+                  <span className="font-bold">REGISTRATION OPEN SOON</span>
                   </motion.button>
                 </div>
-                </div>
-              </div>
-
-              {/* Socials - Right side in Hero */}
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex flex-col items-center gap-3 z-30">
-                <div className="w-px h-10 bg-blue-300/60"></div>
-                {(() => {
-                  const items = [
-                    { icon: (
-                        <svg className="w-5 h-5 text-[#1DA1F2]" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.954 4.569c-.885.392-1.83.656-2.825.775-1.049-1.124-2.523-1.706-4.117-1.706-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.166-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.631 1.953 2.445 3.376 4.6 3.415-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                      ), label: 'Twitter', href: 'https://twitter.com/yourhandle' },
-                    { icon: (
-                        <svg className="w-5 h-5 text-[#0A66C2]" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.06C12.6 8.62 14.18 8 16.1 8 20.06 8 22 10.45 22 14.76V24h-4v-7.3c0-1.74-.03-3.98-2.42-3.98-2.42 0-2.79 1.88-2.79 3.84V24h-4V8z"/></svg>
-                      ), label: 'LinkedIn', href: 'https://www.linkedin.com/company/yourpage' },
-                    { icon: (<img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram" className="w-5 h-5" />), label: 'Instagram', href: 'https://www.instagram.com/yourhandle' },
-                    { icon: (<img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord" className="w-5 h-5" />), label: 'Discord', href: 'https://discord.gg/yourinvite' },
-                  ];
-                  return (
-                    <Dock
-                      items={items}
-                      panelHeight={220}
-                      baseItemSize={44}
-                      magnification={60}
-                      orientation="vertical"
-                    />
-                  );
-                })()}
-                <div className="w-px h-10 bg-blue-300/60"></div>
-              </div>
-
-              </section>
-
-              {/* Marquee Section */}
-                <section className="relative z-30 py-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white overflow-hidden -mt-10 md:-mt-16">
-                  <InfiniteMovingCards
-                    items={[
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>SEE YOU SOON ∞</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>🚀 CODE FOR CHANGE 2.0</span> },
-                      { content: <span className="text-lg md:text-xl font-bold tracking-wider whitespace-nowrap px-4" style={{ fontFamily: 'Michroma, sans-serif' }}>💻 BUILD • INNOVATE • TRANSFORM</span> },
-                    ]}
-                    direction="left"
-                    speed="slow"
-                    pauseOnHover={false}
-                    className="[mask-image:none]"
-                  />
-                </section>
-
-                    {/* About Section with Photo Slideshows */}
-      <section id="about" className="relative z-20 py-12 overflow-hidden will-change-transform">
-        <div className="container mx-auto px-4">
-          {/* Section Header (About) */}
-          <div className="relative text-center mb-12">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-              About
-            </h2>
-            <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - About Content */}
-            <div className="relative text-left">
-
-              <div className="relative z-10">
-
-                <p className="text-lg text-blue-800 mb-6 leading-relaxed">
-                  Cloud Native Durgapur is a community-driven initiative focused on promoting cloud-native technologies,
-                  DevOps practices, and modern software development methodologies in the Durgapur region.
-                </p>
-                <p className="text-lg text-blue-800 leading-relaxed">
-                  We bring together developers, DevOps engineers, and technology enthusiasts to learn, share, and grow together
-                  in the rapidly evolving world of cloud-native computing.
-                </p>
-
-                <p className="text-lg text-blue-800 mb-6 leading-relaxed">
-                  Our mission is to make modern cloud-native engineering accessible in and around Durgapur by creating
-                  an inclusive space for learning, mentorship, and open collaboration. Whether you are a beginner or a
-                  seasoned professional, you’ll find peers, mentors, and opportunities to contribute.
-                </p>
-
-                <h4 className="text-lg font-bold text-blue-900 mb-2" style={{ fontFamily: 'Michroma, sans-serif' }}>
-                  Focus areas
-                </h4>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {['Kubernetes', 'Containers', 'DevOps', 'GitOps', 'Observability', 'Security', 'Serverless', 'Edge'].map((tag) => (
-                    <span key={tag} className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md ring-1 ring-blue-300/40 text-blue-900">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-              </div>
-            </div>
-
-            {/* Right Side - Photo Slideshows */}
-            <div className="space-y-6">
-              {/* First Row - Scroll Left */}
-              <div className="overflow-hidden">
-                <InfiniteMovingCards
-                  items={[
-                    { content: <img src="/DSC_0343.JPG" alt="Community Event 1" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/DSC_0350.JPG" alt="Community Event 2" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/DSC_0361.JPG" alt="Community Event 3" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/DSC_0378.JPG" alt="Community Event 4" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/IMG_1023.JPG" alt="Community Event 5" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/IMG_0976.JPG" alt="Community Event 6" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                  ]}
-                  direction="left"
-                  speed="normal"
-                  pauseOnHover={true}
-                  className="[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]"
-                />
-              </div>
-
-              {/* Second Row - Scroll Right */}
-              <div className="overflow-hidden">
-                <InfiniteMovingCards
-                  items={[
-                    { content: <img src="/IMG_1008.JPG" alt="Workshop 1" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/IMG_1018.JPG" alt="Workshop 2" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/IMG_1022.JPG" alt="Workshop 3" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/IMG_E0970.JPG" alt="Workshop 4" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/IMG_1051.JPG" alt="Workshop 5" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                    { content: <img src="/WhatsApp Image 2025-07-05 at 18.22.37_93b1af7b.jpg" alt="Workshop 6" className="h-36 w-52 object-cover rounded-lg shadow-md" /> },
-                  ]}
-                  direction="right"
-                  speed="normal"
-                  pauseOnHover={true}
-                  className="[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]"
-                />
-              </div>
-            </div>
-          </div>
+        </div>
         </div>
       </section>
 
-      {/* Venue Section */}
-      <section id="venue" className="relative z-20 py-20 will-change-transform">
-        <div className="container mx-auto px-4 text-center">
-          {/* Section Header (Venue) */}
-          <div className="relative text-center mb-12">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-              Venue
-            </h2>
-            <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
-          </div>
-          <div className="max-w-4xl mx-auto bg-black rounded-xl p-8 shadow-2xl border border-gray-700 mb-8">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.434999918623!2d87.3086523154503!3d23.51639998470258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f771ffc861a23d%3A0x69858a4697c3986!2sNational%20Institute%20of%20Technology%2C%20Durgapur!5e0!3m2!1sen!2sin!4v1678886333973!5m2!1sen!2sin"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="rounded-lg"
-            ></iframe>
-          </div>
-          <h3 className="text-2xl font-bold text-blue-900 mb-2" style={{ fontFamily: 'Michroma, sans-serif' }}>
-            National Institute of Technology, Durgapur
-          </h3>
-          <p className="text-lg text-blue-800 mb-8">
-            Mahatma Gandhi Avenue, A-Zone, Durgapur, West Bengal 713209
-          </p>
-          <div className="flex justify-center gap-4">
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                <span>Get Directions</span>
-            </button>
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                <span>View Event Guide</span>
-            </button>
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7c0-1.1.9-2 2-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                <span>Explore Tracks</span>
-            </button>
-          </div>
+      {/* Marquee Section with InfiniteMovingCards */}
+      <section className="relative z-20 py-4 bg-transparent border-y border-red-500/20 overflow-hidden">
+        <div className="scroller relative z-20 w-full overflow-hidden [mask-image:none]" style={{ '--animation-duration': '30s', '--animation-direction': 'forwards' }}>
+          <ul className="flex min-w-full shrink-0 gap-8 py-1 w-max flex-nowrap animate-scroll hover:[animation-play-state:paused]">
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                36 HRS HACKATHON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-purple-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                CODE CRESTZ
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                SEE YOU SOON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                36 HRS HACKATHON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-purple-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                CODE CRESTZ
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                SEE YOU SOON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                36 HRS HACKATHON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-purple-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                CODE CRESTZ
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                SEE YOU SOON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                36 HRS HACKATHON
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-purple-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                CODE CRESTZ
+              </span>
+            </li>
+            <li className="flex-shrink-0">
+              <span className="text-lg md:text-xl font-bold text-red-400 whitespace-nowrap" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                SEE YOU SOON
+              </span>
+            </li>
+          </ul>
         </div>
       </section>
 
-      {/* Mentors and Judges Section */}
-      <section id="mentors-judges" className="relative z-20 py-16 will-change-transform">
-        <div className="container mx-auto px-4">
+      {/* About Section - Space Theme */}
+      <section id="about" className="relative z-20 pt-20 pb-20 overflow-hidden will-change-transform">
+        <div className="container mx-auto px-4 relative z-10">
           {/* Section Header */}
-          <div className="relative text-center mb-12">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-              Mentors and Judges
-            </h2>
-            <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
+          <div className="mb-2 flex flex-col items-start justify-center overflow-hidden ml-auto w-2/3 lg:w-1/2 px-12" suppressHydrationWarning>
+            <TextType
+              text="The Story"
+              as="h2"
+              className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight whitespace-nowrap"
+              style={{ fontFamily: 'ITC Benguiat Bold, serif', color: '#4ade80' }}
+              typingSpeed={50}
+              showCursor={true}
+              cursorCharacter="|"
+            />
           </div>
 
-          <FocusCard
-            cards={[
-              {
-                description: "Mentor - Technology & Innovation",
-              },
-              {
-                description: "Judge - Cloud Native & DevOps",
-              },
-              {
-                description: "Mentor - Open Source & Community",
-              },
-              {
-                description: "Judge - Software Development",
-              },
-              {
-                description: "Mentor - AI & Machine Learning",
-              },
-              {
-                description: "Judge - Web Development",
-              },
-            ]}
-          />
+          <div className="relative min-h-96 flex items-center">
+            {/* Left Side - Image (Overlapping) */}
+            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-2/3 flex justify-center z-10">
+              <div className="relative group w-full">
+                {/* Green glow effect behind image */}
+                <div className="absolute inset-0 bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 rounded-full blur-3xl opacity-5 group-hover:opacity-10 transition duration-1000 animate-pulse" style={{ width: '120%', height: '120%', left: '-10%', top: '-10%' }}></div>
+
+                {/* Green highlight overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-lg opacity-0 group-hover:opacity-10 transition duration-500" style={{ width: '100%', height: '100%' }}></div>
+
+                <img
+                  src="/stranger-things-2827303-removebg-preview.png"
+                  alt="Stranger Things"
+                  className="relative w-full h-auto drop-shadow-2xl"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* Right Side - Content (Overlapping) */}
+            <div className="relative ml-auto w-2/3 lg:w-1/2 space-y-6 text-base leading-relaxed px-12 py-16 z-20">
+              <p className="text-lg font-black text-white">
+                <span className="text-xl font-extrabold">Cloud Native Durgapur</span> isn't just a tech community—it's a movement.
+              </p>
+
+              <p className="text-white font-bold">
+                We're a passionate collective of developers, creators, innovators, and cloud enthusiasts from Durgapur and across Eastern India. United by curiosity and a shared drive, we build, experiment, and grow with the latest in Cloud, DevOps, Kubernetes, Microservices, AI/ML, and the entire cloud-native landscape.
+              </p>
+
+              <p className="text-white font-bold">
+                <span className="text-red-400">What sets us apart?</span> We blend hands-on learning with real-world building—organizing engaging workshops, bootcamps, technical talks, hackathons, and collaborative meetups that empower the builders and thinkers of tomorrow.
+              </p>
+
+              <p className="text-white font-bold">
+                At Cloud Native Durgapur, we believe tech should be inclusive, practical, and truly community-powered.
+              </p>
+
+              <p className="pt-6 text-red-300 font-semibold text-lg">
+                Join us—whether you're a seasoned cloud architect, an ambitious student, or anyone eager to reimagine what's possible with cloud technology.
+              </p>
+
+              <p className="pt-6 text-red-300 font-semibold text-lg">
+                Now, we're back with <span className="text-red-400">CODE CRESTZ</span> — a bigger, bolder hackathon to push innovation and collaboration to new heights.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Sponsors Section */}
-      <section id="sponsors" className="relative z-20 py-20 will-change-transform">
-        <div className="container mx-auto px-4">
-          {/* Background Text */}
+      {/* Game Zones Section */}
+      <section id="game-zones" className="relative z-20 py-20 will-change-transform">
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Section Header */}
           <div className="relative text-center mb-16">
+            <TextType
+              text="ADVENTURE TRACKS"
+              as="h2"
+              className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tight"
+              style={{ fontFamily: 'ITC Benguiat Bold, serif', color: '#ef4444' }}
+              typingSpeed={50}
+              showCursor={true}
+              cursorCharacter="|"
+            />
+            <p className="mt-6 max-w-3xl mx-auto text-red-200/80">
+              Choose your track and showcase your skills across multiple domains of innovation
+            </p>
+          </div>
 
+          {/* Game Zones Grid - Transparent */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full mx-auto">
+            {/* AI & ML */}
+            <div className="group text-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <h3 className="text-4xl font-bold mb-6 tracking-wider" style={{ fontFamily: 'Merriweather, serif', fontWeight: '900', backgroundImage: 'linear-gradient(120deg, rgba(239, 68, 68, 0) 40%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0) 60%)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextStroke: '1.5px rgba(239, 68, 68, 0.6)', color: 'transparent', textShadow: '0 0 15px rgba(239, 68, 68, 0.4)' }}>AI & ML</h3>
+              <p className="text-base leading-relaxed text-red-200/70" style={{ fontFamily: 'Merriweather, serif' }}>
+                Develop AI/ML solutions for automation, insights, and smarter decision-making processes.
+              </p>
+            </div>
+
+            {/* Blockchain & Web3 */}
+            <div className="group text-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <h3 className="text-4xl font-bold mb-6 tracking-wider" style={{ fontFamily: 'Merriweather, serif', fontWeight: '900', backgroundImage: 'linear-gradient(120deg, rgba(239, 68, 68, 0) 40%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0) 60%)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextStroke: '1.5px rgba(239, 68, 68, 0.6)', color: 'transparent', textShadow: '0 0 15px rgba(239, 68, 68, 0.4)' }}>Blockchain & Web3</h3>
+              <p className="text-base leading-relaxed text-red-200/70" style={{ fontFamily: 'Merriweather, serif' }}>
+                Create decentralized applications promoting security, transparency, and user empowerment.
+              </p>
+            </div>
+
+            {/* Web & App Dev */}
+            <div className="group text-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <h3 className="text-4xl font-bold mb-6 tracking-wider" style={{ fontFamily: 'Merriweather, serif', fontWeight: '900', backgroundImage: 'linear-gradient(120deg, rgba(239, 68, 68, 0) 40%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0) 60%)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextStroke: '1.5px rgba(239, 68, 68, 0.6)', color: 'transparent', textShadow: '0 0 15px rgba(239, 68, 68, 0.4)' }}>Web & App Dev</h3>
+              <p className="text-base leading-relaxed text-red-200/70" style={{ fontFamily: 'Merriweather, serif' }}>
+                Build user-friendly platforms for seamless interactions and digital solutions.
+              </p>
+            </div>
+
+            {/* AR & VR */}
+            <div className="group text-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <h3 className="text-4xl font-bold mb-6 tracking-wider" style={{ fontFamily: 'Merriweather, serif', fontWeight: '900', backgroundImage: 'linear-gradient(120deg, rgba(239, 68, 68, 0) 40%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0) 60%)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextStroke: '1.5px rgba(239, 68, 68, 0.6)', color: 'transparent', textShadow: '0 0 15px rgba(239, 68, 68, 0.4)' }}>AR & VR</h3>
+              <p className="text-base leading-relaxed text-red-200/70" style={{ fontFamily: 'Merriweather, serif' }}>
+                Develop immersive experiences enhancing education, training, and entertainment applications.
+              </p>
+            </div>
+
+            {/* Med Tech */}
+            <div className="group text-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <h3 className="text-4xl font-bold mb-6 tracking-wider" style={{ fontFamily: 'Merriweather, serif', fontWeight: '900', backgroundImage: 'linear-gradient(120deg, rgba(239, 68, 68, 0) 40%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0) 60%)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextStroke: '1.5px rgba(239, 68, 68, 0.6)', color: 'transparent', textShadow: '0 0 15px rgba(239, 68, 68, 0.4)' }}>Med Tech</h3>
+              <p className="text-base leading-relaxed text-red-200/70" style={{ fontFamily: 'Merriweather, serif' }}>
+                Design technology improving healthcare delivery, diagnosis, and patient management.
+              </p>
+            </div>
+
+            {/* Open Innovation */}
+            <div className="group text-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <h3 className="text-4xl font-bold mb-6 tracking-wider" style={{ fontFamily: 'Merriweather, serif', fontWeight: '900', backgroundImage: 'linear-gradient(120deg, rgba(239, 68, 68, 0) 40%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0) 60%)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextStroke: '1.5px rgba(239, 68, 68, 0.6)', color: 'transparent', textShadow: '0 0 15px rgba(239, 68, 68, 0.4)' }}>Open Innovation</h3>
+              <p className="text-base leading-relaxed text-red-200/70" style={{ fontFamily: 'Merriweather, serif' }}>
+                Create collaborative solutions addressing diverse challenges across various industries.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Final Jackpot Section */}
+      <section id="prizes" className="relative z-20 py-20 will-change-transform">
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Section Header */}
+          <div className="relative text-center mb-16">
+            <TextType
+              text="THE MYSTRY PODIUM"
+              as="h2"
+              className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tight"
+              style={{ fontFamily: 'ITC Benguiat Bold, serif', color: '#ef4444' }}
+              typingSpeed={50}
+              showCursor={true}
+              cursorCharacter="|"
+            />
+          </div>
+
+          {/* Prize Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+            {/* Beta Winner - Left */}
+            <motion.div
+              className="group text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: false, margin: "-100px" }}
+            >
+              <div className="relative">
+                {/* Glowing background effect - Purple to Red */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+
+                {/* Card */}
+                <div className="relative bg-gradient-to-br from-purple-900/60 via-slate-900/70 to-red-900/40 backdrop-blur-xl border border-red-500/50 rounded-2xl p-8 overflow-hidden">
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-red-400/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Top accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    {/* Badge */}
+                    <div className="flex items-center justify-center mb-6">
+                      <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                      <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Beta Winner</span>
+                    </div>
+
+                    {/* Trophy Icon */}
+                    <div className="mb-8 text-6xl filter drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.6))' }}>👑</div>
+
+                    {/* Prize Amount */}
+                    <div className="mb-6">
+                      <p className="text-4xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>INR 15,000*</p>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-red-200/80 text-sm">+ Exciting Sponsor Rewards + Partner Benefits (TBA)</p>
+
+                    {/* Bottom indicator */}
+                    <div className="mt-6 flex justify-center">
+                      <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                        <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Alpha Winner - Center (Featured) */}
+            <motion.div
+              className="group text-center md:scale-110"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: false, margin: "-100px" }}
+            >
+              <div className="relative">
+                {/* Glowing background effect - Purple to Red (Brighter) */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-red-500 to-purple-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+
+                {/* Card */}
+                <div className="relative bg-gradient-to-br from-purple-900/70 via-slate-900/80 to-red-900/50 backdrop-blur-xl border border-red-500/70 rounded-2xl p-8 overflow-hidden">
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-red-400/30 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Top accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-70"></div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    {/* Badge */}
+                    <div className="flex items-center justify-center mb-6">
+                      <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                      <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Alpha Winner</span>
+                    </div>
+
+                    {/* Trophy Icon */}
+                    <div className="mb-8 text-7xl filter drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 30px rgba(239, 68, 68, 0.8))' }}>👑</div>
+
+                    {/* Prize Amount */}
+                    <div className="mb-6">
+                      <p className="text-5xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>INR 25,000*</p>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-red-200/80 text-sm">+ Exciting Sponsor Rewards + Partner Benefits (TBA)</p>
+
+                    {/* Bottom indicator */}
+                    <div className="mt-6 flex justify-center">
+                      <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                        <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Gamma Winner - Right */}
+            <motion.div
+              className="group text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: false, margin: "-100px" }}
+            >
+              <div className="relative">
+                {/* Glowing background effect - Purple to Red */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+
+                {/* Card */}
+                <div className="relative bg-gradient-to-br from-purple-900/60 via-slate-900/70 to-red-900/40 backdrop-blur-xl border border-red-500/50 rounded-2xl p-8 overflow-hidden">
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-red-400/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Top accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    {/* Badge */}
+                    <div className="flex items-center justify-center mb-6">
+                      <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                      <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Gamma Winner</span>
+                    </div>
+
+                    {/* Trophy Icon */}
+                    <div className="mb-8 text-6xl filter drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.7))' }}>👑</div>
+
+                    {/* Prize Amount */}
+                    <div className="mb-6">
+                      <p className="text-4xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>INR 10,000*</p>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-red-200/80 text-sm">+ Exciting Sponsor Rewards + Partner Benefits (TBA)</p>
+
+                    {/* Bottom indicator */}
+                    <div className="mt-6 flex justify-center">
+                      <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                        <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Explore All Prizes Button */}
+          <div className="flex justify-center">
+            <button className="px-8 py-3 border-2 border-red-500 text-red-500 rounded-lg font-semibold hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+              Explore All Prizes →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline Section */}
+      <section id="mystry-advanture" className="relative z-20 py-20 will-change-transform">
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Section Header */}
+          <div className="relative text-center mb-20">
+            <TextType
+              text="MYSTRY ADVANTURE"
+              as="h2"
+              className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tight"
+              style={{ fontFamily: 'ITC Benguiat Bold, serif', color: '#4ade80' }}
+              typingSpeed={50}
+              showCursor={true}
+              cursorCharacter="|"
+            />
+            
+          </div>
+
+          {/* Beginning Heading */}
+          <div className="relative text-center mb-16">
+            <div className="flex justify-center mb-3">
+              <ShinyText
+                text="The Beginning"
+                speed={5}
+                hollow={true}
+                className="text-4xl md:text-5xl font-bold"
+              />
+            </div>
+           
+            <div className="flex justify-center mb-8">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                <img
+                  src="/StrangerThings_S3_Eleven_RGB_Digital_ES-ES-removebg-preview.png"
+                  alt="Eleven"
+                  className="relative h-80 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
+            <p className="mt-6 max-w-3xl mx-auto text-green-200/80 text-xl md:text-2xl leading-relaxed font-semibold" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+              Embark on an extraordinary journey through time and innovation. Follow the path of discovery as we unveil the secrets of the hackathon, where bold ideas meet brilliant minds. The adventure awaits those brave enough to enter.
+            </p>
+          </div>
+
+          {/* Timeline Container */}
+          <div className="max-w-5xl mx-auto relative">
+            {/* Central Timeline Line - Purple to Red Gradient */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-red-500 to-purple-600"></div>
+            {/* Glow Effect - Purple and Red */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-2 h-full bg-gradient-to-b from-purple-500/30 via-red-500/40 to-purple-500/30 blur-lg"></div>
+            {/* Additional Red Glow */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-3 h-full bg-gradient-to-b from-transparent via-red-600/20 to-transparent blur-2xl"></div>
+
+            {/* Timeline Items */}
+            <div className="space-y-16">
+              {/* Timeline Item 1 - Left */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 text-right pr-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Purple to Red */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-purple-900/60 via-slate-900/70 to-red-900/40 backdrop-blur-xl border border-purple-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Purple and Red */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 via-red-400/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-end mb-3">
+                          <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent mb-3 group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>Registration Opens</h3>
+                        <div className="flex items-center justify-end mb-4">
+                          <div className="h-px flex-grow bg-gradient-to-r from-transparent to-red-500/30 mr-3"></div>
+                          <p className="text-sm font-bold text-red-300">April 1, 2026</p>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">Start registering for the hackathon and secure your spot</p>
+                        <div className="mt-4 flex justify-end">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 via-red-500 to-red-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-red-500/30 flex-shrink-0 shadow-lg shadow-red-500/50"></div>
+                <div className="w-1/2 flex justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/Jane_Ives-removebg-preview.png"
+                      alt="Jane Ives"
+                      className="relative h-64 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Timeline Item 2 - Right */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 flex justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/Michael_Wheeler-removebg-preview.png"
+                      alt="Michael Wheeler"
+                      className="relative h-64 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-purple-500/30 flex-shrink-0 shadow-lg shadow-purple-500/50"></div>
+                <div className="w-1/2 text-left pl-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Purple to Red */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-purple-500 to-red-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-red-900/40 via-slate-900/70 to-purple-900/60 backdrop-blur-xl border border-red-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Red and Purple */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-500/0 via-red-400/20 to-red-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center mb-3">
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                          <div className="w-2 h-2 bg-red-400 rounded-full ml-2 animate-pulse"></div>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-red-200 via-red-300 to-purple-400 bg-clip-text text-transparent mb-3 group-hover:from-red-100 group-hover:via-red-200 group-hover:to-purple-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>Team Formation Deadline</h3>
+                        <div className="flex items-center mb-4">
+                          <p className="text-sm font-bold text-red-300">April 15, 2026</p>
+                          <div className="h-px flex-grow bg-gradient-to-r from-red-500/30 to-transparent ml-3"></div>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">Final deadline to form your team and submit team details</p>
+                        <div className="mt-4 flex justify-start">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Timeline Item 3 - Left */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 text-right pr-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Purple to Red */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-purple-900/60 via-slate-900/70 to-red-900/40 backdrop-blur-xl border border-red-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Purple and Red */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 via-red-400/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-end mb-3">
+                          <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent mb-3 group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>Hackathon Begins</h3>
+                        <div className="flex items-center justify-end mb-4">
+                          <div className="h-px flex-grow bg-gradient-to-r from-transparent to-red-500/30 mr-3"></div>
+                          <p className="text-sm font-bold text-red-300">April 22, 2026</p>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">The 48-hour coding marathon starts. Let the innovation begin!</p>
+                        <div className="mt-4 flex justify-end">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 via-red-500 to-red-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-red-500/30 flex-shrink-0 shadow-lg shadow-red-500/50"></div>
+                <div className="w-1/2 flex justify-start">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/stranger-things-photoroom.png"
+                      alt="Stranger Things"
+                      className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Timeline Item 3.5 - Mid Evaluation - Right */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 flex justify-end">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/lucas-sinclair-photoroom.png"
+                      alt="Lucas Sinclair"
+                      className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 via-red-500 to-red-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-red-500/30 flex-shrink-0 shadow-lg shadow-red-500/50"></div>
+                <div className="w-1/2 text-left pl-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Red to Purple */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-purple-500 to-red-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-red-900/40 via-slate-900/70 to-purple-900/60 backdrop-blur-xl border border-red-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Red and Purple */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-500/0 via-red-400/20 to-red-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center mb-3">
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                          <div className="w-2 h-2 bg-red-400 rounded-full ml-2 animate-pulse"></div>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-red-200 via-red-300 to-purple-400 bg-clip-text text-transparent mb-3 group-hover:from-red-100 group-hover:via-red-200 group-hover:to-purple-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>Mid Evaluation</h3>
+                        <div className="flex items-center mb-4">
+                          <p className="text-sm font-bold text-red-300">April 23, 2026</p>
+                          <div className="h-px flex-grow bg-gradient-to-r from-red-500/30 to-transparent ml-3"></div>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">Judges review projects at the halfway point and provide feedback</p>
+                        <div className="mt-4 flex justify-start">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Timeline Item 4 - Left */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 text-right pr-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Purple to Red */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-purple-900/60 via-slate-900/70 to-red-900/40 backdrop-blur-xl border border-red-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Purple and Red */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 via-red-400/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-end mb-3">
+                          <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent mb-3 group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>Submission Deadline</h3>
+                        <div className="flex items-center justify-end mb-4">
+                          <div className="h-px flex-grow bg-gradient-to-r from-transparent to-red-500/30 mr-3"></div>
+                          <p className="text-sm font-bold text-red-300">April 24, 2026</p>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">Submit your final project and presentation materials</p>
+                        <div className="mt-4 flex justify-end">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 via-red-500 to-red-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-red-500/30 flex-shrink-0 shadow-lg shadow-red-500/50"></div>
+                <div className="w-1/2 flex justify-start">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/nancy-wheeler-photoroom.png"
+                      alt="Nancy Wheeler"
+                      className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Timeline Item 5 - Right */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 flex justify-end">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/character-photoroom.png"
+                      alt="Character"
+                      className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 via-red-500 to-red-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-red-500/30 flex-shrink-0 shadow-lg shadow-red-500/50"></div>
+                <div className="w-1/2 text-left pl-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Red to Purple */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-purple-500 to-red-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-red-900/40 via-slate-900/70 to-purple-900/60 backdrop-blur-xl border border-red-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Red and Purple */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-500/0 via-red-400/20 to-red-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center mb-3">
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                          <div className="w-2 h-2 bg-red-400 rounded-full ml-2 animate-pulse"></div>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-red-200 via-red-300 to-purple-400 bg-clip-text text-transparent mb-3 group-hover:from-red-100 group-hover:via-red-200 group-hover:to-purple-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>Winners Announced</h3>
+                        <div className="flex items-center mb-4">
+                          <p className="text-sm font-bold text-red-300">April 25, 2026</p>
+                          <div className="h-px flex-grow bg-gradient-to-r from-red-500/30 to-transparent ml-3"></div>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">Celebrate with us as we announce the winning teams and award prizes</p>
+                        <div className="mt-4 flex justify-start">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Timeline Item 6 - End Ceremony - Left */}
+              <motion.div
+                className="flex gap-8 items-center"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false, margin: "-100px" }}
+              >
+                <div className="w-1/2 text-right pr-8">
+                  <div className="relative group">
+                    {/* Glowing background effect - Purple to Red */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-br from-purple-900/60 via-slate-900/70 to-red-900/40 backdrop-blur-xl border border-red-500/50 rounded-xl p-8 overflow-hidden">
+                      {/* Animated border - Purple and Red */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 via-red-400/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      {/* Top accent line - Red gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50"></div>
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-end mb-3">
+                          <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
+                          <span className="text-xs font-semibold text-red-300 uppercase tracking-widest">Event</span>
+                        </div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-200 via-red-300 to-red-400 bg-clip-text text-transparent mb-3 group-hover:from-purple-100 group-hover:via-red-200 group-hover:to-red-300 transition-all" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>End Ceremony</h3>
+                        <div className="flex items-center justify-end mb-4">
+                          <div className="h-px flex-grow bg-gradient-to-r from-transparent to-red-500/30 mr-3"></div>
+                          <p className="text-sm font-bold text-red-300">April 25, 2026</p>
+                        </div>
+                        <p className="text-red-200/80 leading-relaxed text-sm">Join us for the closing ceremony and networking session with all participants</p>
+                        <div className="mt-4 flex justify-end">
+                          <div className="w-8 h-8 rounded-full border border-red-400/50 flex items-center justify-center group-hover:border-red-300 transition-all">
+                            <div className="w-2 h-2 bg-red-400 rounded-full group-hover:bg-red-300 transition-all"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 via-red-500 to-red-600 rounded-full ring-4 ring-slate-900 ring-offset-4 ring-offset-red-500/30 flex-shrink-0 shadow-lg shadow-red-500/50"></div>
+                <div className="w-1/2 flex justify-start">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
+                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
+                    <img
+                      src="/st-character-poster-photoroom.png"
+                      alt="Stranger Things Poster"
+                      className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* End of the Adventure Section */}
+      <section className="relative z-20 py-20 will-change-transform">
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            className="max-w-4xl mx-auto text-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: false, margin: "-100px" }}
+          >
+            {/* Glowing background effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-red-500 to-purple-600 rounded-3xl blur-3xl opacity-20"></div>
+
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="mb-8">
+                <ShinyText
+                  text="End of the Adventure"
+                  speed={5}
+                  hollow={true}
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold"
+                />
+              </div>
+
+              <p className="text-xl md:text-2xl text-purple-200/90 mb-6 leading-relaxed" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                The journey through CODE CRESTZ has been extraordinary. From registration to the closing ceremony, you've witnessed innovation, creativity, and the power of collaboration.
+              </p>
+
+              <p className="text-lg md:text-xl text-red-300/80 mb-8 leading-relaxed" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                But remember, this is just the beginning. The adventure continues beyond the hackathon. Keep coding, keep innovating, and keep pushing the boundaries of what's possible.
+              </p>
+
+              {/* Decorative elements */}
+              <div className="flex justify-center gap-4 mt-12">
+                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Sponsors & Community Partners Section */}
+      <section id="sponsors" className="relative z-20 py-20 will-change-transform">
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Section Header */}
+          <div className="relative text-center mb-16">
             <div className="relative z-10 pt-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-                Sponsors & Partners
-              </h2>
-              <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
+              <TextType
+                text="ADVENTURE SUPPORTS"
+                as="h2"
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight"
+                style={{ fontFamily: 'ITC Benguiat Bold, serif', color: '#4ade80' }}
+                typingSpeed={50}
+                showCursor={true}
+                cursorCharacter="|"
+              />
             </div>
           </div>
 
-          {/* Sponsors Grid with Hover Effect */}
+          {/* Combined Grid with Hover Effect */}
           <div className="max-w-7xl mx-auto">
             <HoverEffect
               className="grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
@@ -422,29 +1078,6 @@ export default function Home() {
                 { title: "Merchanzi", description: "E-commerce Solutions" },
                 { title: "SNU", description: "Academic Partner" },
                 { title: "MLH", description: "Major League Hacking" },
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Community Partners Section */}
-      <section id="community-partners" className="relative z-20 py-20">
-        <div className="container mx-auto px-4">
-          <div className="relative text-center mb-16">
-            <div className="relative z-10 pt-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-                Community Partners
-              </h2>
-              <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
-            </div>
-          </div>
-
-          {/* Partners Grid with Hover Effect */}
-          <div className="max-w-7xl mx-auto">
-            <HoverEffect
-              className="grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
-              items={[
                 { title: "Partner 1", description: "Community Support & Collaboration" },
                 { title: "Partner 2", description: "Educational Resources" },
                 { title: "Partner 3", description: "Technical Mentorship" },
@@ -455,35 +1088,25 @@ export default function Home() {
                 { title: "Partner 8", description: "Student Programs" },
                 { title: "Partner 9", description: "Industry Connect" },
                 { title: "Partner 10", description: "Skill Development" },
-                { title: "Partner 11", description: "Research Collaboration" },
-                { title: "Partner 12", description: "Startup Ecosystem" },
-                { title: "Partner 13", description: "Cloud Infrastructure" },
-                { title: "Partner 14", description: "DevOps Tools" },
-                { title: "Partner 15", description: "AI/ML Platform" },
-                { title: "Partner 16", description: "Data Analytics" },
-                { title: "Partner 17", description: "Cybersecurity" },
-                { title: "Partner 18", description: "IoT Solutions" },
-                { title: "Partner 19", description: "Blockchain Network" },
               ]}
             />
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials Section
       <section id="testimonials" className="relative z-20 py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-10"> */}
 
           {/* Section header */}
-          <div className="relative text-center mb-12">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
+          {/* <div className="relative text-center mb-12">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent mb-4 tracking-tight" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
               Testimonials
             </h2>
-            <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
-          </div>
+          </div> */}
 
           {/* Testimonials rows (two moving rows) */}
-          {(() => {
+          {/* {(() => {
             const data = [
               {
                 quote: "An amazing opportunity to connect with practitioners and learn by doing.",
@@ -515,20 +1138,20 @@ export default function Home() {
                 name: "Sanjay Kumar Das",
                 role: "Managing Director, Webel",
               },
-            ];
+            ]; */}
 
-            const card = (t, key) => {
+            {/* const card = (t, key) => {
               const initials = t.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase();
               return (
-                <div key={key} className="w-[320px] shrink-0 rounded-xl border border-blue-300/50 bg-white/10 backdrop-blur-md shadow-sm p-5 flex flex-col gap-4">
-                  <p className="text-blue-900 leading-relaxed">“{t.quote}”</p>
+                <div key={key} className="w-[320px] shrink-0 rounded-xl border border-green-500/50 bg-green-900/20 backdrop-blur-md shadow-sm p-5 flex flex-col gap-4">
+                  <p className="text-green-200 leading-relaxed">“{t.quote}”</p>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-600/10 ring-1 ring-blue-300/40 flex items-center justify-center text-blue-900 font-bold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600/40 to-teal-600/40 ring-1 ring-green-500/40 flex items-center justify-center text-green-200 font-bold">
                       {initials}
                     </div>
                     <div className="text-sm">
-                      <div className="font-semibold text-blue-900">{t.name}</div>
-                      <div className="text-blue-700">{t.role}</div>
+                      <div className="font-semibold text-green-300">{t.name}</div>
+                      <div className="text-teal-400">{t.role}</div>
                     </div>
                   </div>
                 </div>
@@ -566,19 +1189,24 @@ export default function Home() {
           })()}
 
         </div>
-      </section>
+      </section> */}
 
-      {/* FAQs Section */}
+      {/* FAQs Section - Space Theme */}
       <section id="faqs" className="relative z-20 py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-10">
           {/* Section header */}
           <div className="relative text-center mb-8">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight" style={{ fontFamily: 'Michroma, sans-serif' }}>
-              Questions
-            </h2>
-            <div className="w-16 h-1 bg-blue-600/80 mx-auto rounded-full"></div>
-            <p className="mt-6 max-w-3xl mx-auto text-blue-800/90">
-              It doesn&apos;t matter if you are a beginner or a seasoned hacker; we&apos;ve got you covered. Our FAQs will solve most of your doubts and queries.
+            <TextType
+              text="FAQs"
+              as="h2"
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight"
+              style={{ fontFamily: 'ITC Benguiat Bold, serif', color: '#ef4444' }}
+              typingSpeed={50}
+              showCursor={true}
+              cursorCharacter="|"
+            />
+            <p className="mt-6 max-w-3xl mx-auto text-red-200/90">
+              It doesn't matter if you are a beginner or a seasoned hacker; we've got you covered. Our FAQs will solve most of your doubts and queries.
             </p>
           </div>
 
@@ -597,33 +1225,56 @@ export default function Home() {
             ];
 
             return (
-              <div className="max-w-3xl mx-auto rounded-xl overflow-hidden">
-                <ul className="divide-y divide-blue-300/30">
-                  {faqs.map((item, idx) => {
-                    const open = faqOpenIndex === idx;
-                    return (
-                      <li key={idx}>
+              <div className="max-w-4xl mx-auto space-y-4">
+                {faqs.map((item, idx) => {
+                  const open = faqOpenIndex === idx;
+                  return (
+                    <motion.div
+                      key={idx}
+                      className="group relative"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: idx * 0.1 }}
+                      viewport={{ once: false, margin: "-100px" }}
+                    >
+                      {/* Glowing background effect */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-red-900/30 via-purple-900/30 to-red-900/30 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+
+                      <div className="relative bg-red-900/20 border border-red-500/40 rounded-2xl overflow-hidden backdrop-blur-sm">
                         <button
                           type="button"
-                          className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-transparent transition-colors"
+                          className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-red-600/20 transition-all duration-300"
                           onClick={() => setFaqOpenIndex(open ? null : idx)}
                           aria-expanded={open}
                           aria-controls={`faq-panel-${idx}`}
                         >
-                          <span className="text-blue-900 font-medium" style={{ fontFamily: 'Michroma, sans-serif' }}>{item.q}</span>
-                          <span className="shrink-0 w-6 h-6 rounded-full border border-blue-300/60 flex items-center justify-center text-blue-900">
+                          <span className="text-red-300 font-bold text-lg" style={{ fontFamily: 'ITC Benguiat Bold, serif', fontWeight: '900' }}>{item.q}</span>
+                          <motion.span
+                            className="shrink-0 w-8 h-8 rounded-full border-2 border-red-500/60 flex items-center justify-center text-red-300 font-bold"
+                            animate={{ rotate: open ? 180 : 0 }}
+                            transition={{ duration: 0.3 }}
+                            style={{ fontFamily: 'ITC Benguiat Bold, serif' }}
+                          >
                             {open ? "−" : "+"}
-                          </span>
+                          </motion.span>
                         </button>
                         {open && (
-                          <div id={`faq-panel-${idx}`} className="px-5 pb-5 text-blue-800/90" style={{ fontFamily: 'Michroma, sans-serif' }}>
+                          <motion.div
+                            id={`faq-panel-${idx}`}
+                            className="px-6 pb-5 text-red-200/80 border-t border-red-500/20 text-base leading-relaxed"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            style={{ fontFamily: 'ITC Benguiat Bold, serif', fontWeight: '600' }}
+                          >
                             {item.a}
-                          </div>
+                          </motion.div>
                         )}
-                      </li>
-                    );
-                  })}
-                </ul>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             );
           })()}
@@ -632,9 +1283,9 @@ export default function Home() {
 
 
 
-      {/* Footer */}
-      <footer className="relative z-20 bg-blue-900 text-white py-12">
-        <div className="container mx-auto px-4">
+      {/* Footer - Space Theme */}
+      <footer className="relative z-20 text-white py-12 border-t border-green-500/20">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
               <div className="w-10 h-10 relative">
@@ -646,12 +1297,12 @@ export default function Home() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-xl font-bold" style={{ fontFamily: 'Michroma, sans-serif' }}>
-                Cloud Native Durgapur
+              <span className="text-xl font-bold bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
+                Code CrestZ
               </span>
             </div>
-            <div className="text-blue-200">
-              <p>&copy; 2024 Cloud Native Durgapur. All rights reserved.</p>
+            <div className="text-green-300/80">
+              <p>&copy; 2024 Code CrestZ. All rights reserved.</p>
             </div>
           </div>
         </div>
