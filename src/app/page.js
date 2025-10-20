@@ -267,15 +267,15 @@ export default function Home() {
             {/* Right Side - Content (Overlapping) */}
             <div className="relative ml-auto w-2/3 lg:w-1/2 space-y-6 text-base leading-relaxed px-12 py-16 z-20">
               <p className="text-lg font-black text-white">
-                <span className="text-xl font-extrabold">Cloud Native Durgapur</span> isn't just a tech community—it's a movement.
+                <span className="text-xl font-extrabold">Cloud Native Durgapur</span> isn&apos;t just a tech community&mdash;it&apos;s a movement.
               </p>
 
               <p className="text-white font-bold">
-                We're a passionate collective of developers, creators, innovators, and cloud enthusiasts from Durgapur and across Eastern India. United by curiosity and a shared drive, we build, experiment, and grow with the latest in Cloud, DevOps, Kubernetes, Microservices, AI/ML, and the entire cloud-native landscape.
+                We&apos;re a passionate collective of developers, creators, innovators, and cloud enthusiasts from Durgapur and across Eastern India. United by curiosity and a shared drive, we build, experiment, and grow with the latest in Cloud, DevOps, Kubernetes, Microservices, AI/ML, and the entire cloud-native landscape.
               </p>
 
               <p className="text-white font-bold">
-                <span className="text-red-400">What sets us apart?</span> We blend hands-on learning with real-world building—organizing engaging workshops, bootcamps, technical talks, hackathons, and collaborative meetups that empower the builders and thinkers of tomorrow.
+                <span className="text-red-400">What sets us apart?</span> We blend hands-on learning with real-world building&mdash;organizing engaging workshops, bootcamps, technical talks, hackathons, and collaborative meetups that empower the builders and thinkers of tomorrow.
               </p>
 
               <p className="text-white font-bold">
@@ -283,11 +283,11 @@ export default function Home() {
               </p>
 
               <p className="pt-6 text-red-300 font-semibold text-lg">
-                Join us—whether you're a seasoned cloud architect, an ambitious student, or anyone eager to reimagine what's possible with cloud technology.
+                Join us&mdash;whether you&apos;re a seasoned cloud architect, an ambitious student, or anyone eager to reimagine what&apos;s possible with cloud technology.
               </p>
 
               <p className="pt-6 text-red-300 font-semibold text-lg">
-                Now, we're back with <span className="text-red-400">CODE CRESTZ</span> — a bigger, bolder hackathon to push innovation and collaboration to new heights.
+                Now, we&apos;re back with <span className="text-red-400">CODE CRESTZ</span> &mdash; a bigger, bolder hackathon to push innovation and collaboration to new heights.
               </p>
             </div>
           </div>
@@ -1018,11 +1018,11 @@ export default function Home() {
               </div>
 
               <p className="text-xl md:text-2xl text-purple-200/90 mb-6 leading-relaxed" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
-                The journey through CODE CRESTZ has been extraordinary. From registration to the closing ceremony, you've witnessed innovation, creativity, and the power of collaboration.
+                The journey through CODE CRESTZ has been extraordinary. From registration to the closing ceremony, you&apos;ve witnessed innovation, creativity, and the power of collaboration.
               </p>
 
               <p className="text-lg md:text-xl text-red-300/80 mb-8 leading-relaxed" style={{ fontFamily: 'ITC Benguiat Bold, serif' }}>
-                But remember, this is just the beginning. The adventure continues beyond the hackathon. Keep coding, keep innovating, and keep pushing the boundaries of what's possible.
+                But remember, this is just the beginning. The adventure continues beyond the hackathon. Keep coding, keep innovating, and keep pushing the boundaries of what&apos;s possible.
               </p>
 
               {/* Decorative elements */}
@@ -1206,7 +1206,7 @@ export default function Home() {
               cursorCharacter="|"
             />
             <p className="mt-6 max-w-3xl mx-auto text-red-200/90">
-              It doesn't matter if you are a beginner or a seasoned hacker; we've got you covered. Our FAQs will solve most of your doubts and queries.
+              It doesn&apos;t matter if you are a beginner or a seasoned hacker; we&apos;ve got you covered. Our FAQs will solve most of your doubts and queries.
             </p>
           </div>
 
