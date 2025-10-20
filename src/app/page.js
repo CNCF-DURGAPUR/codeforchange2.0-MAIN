@@ -580,10 +580,13 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
                 <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
-                <img
+                <Image
                   src="/StrangerThings_S3_Eleven_RGB_Digital_ES-ES-removebg-preview.png"
                   alt="Eleven"
+                  width={640}
+                  height={320}
                   className="relative h-80 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                  priority
                 />
               </div>
             </div>
@@ -649,9 +652,11 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
                     <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
                     <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
-                    <img
+                    <Image
                       src="/Jane_Ives-removebg-preview.png"
                       alt="Jane Ives"
+                      width={256}
+                      height={256}
                       className="relative h-64 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
                     />
                   </div>
@@ -759,10 +764,13 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
                     <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
                     <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
-                    <img
+                    <Image
                       src="/stranger-things-photoroom.png"
                       alt="Stranger Things"
+                      width={288}
+                      height={288}
                       className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                      priority
                     />
                   </div>
                 </div>
@@ -782,10 +790,13 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
                     <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
                     <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
-                    <img
+                    <Image
                       src="/lucas-sinclair-photoroom.png"
                       alt="Lucas Sinclair"
+                      width={288}
+                      height={288}
                       className="relative h-72 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                      priority
                     />
                   </div>
                 </div>
@@ -868,7 +879,6 @@ export default function Home() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-purple-500 to-red-600 rounded-full blur-2xl opacity-80 animate-pulse"></div>
                     <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-full blur-3xl opacity-70"></div>
-                    <div className="absolute inset-0 bg-radial-gradient from-red-500 rounded-full blur-xl opacity-60"></div>
                     <img
                       src="/nancy-wheeler-photoroom.png"
                       alt="Nancy Wheeler"
