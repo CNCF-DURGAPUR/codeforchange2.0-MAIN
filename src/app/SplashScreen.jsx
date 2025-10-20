@@ -133,6 +133,12 @@ export default function SplashScreen({ children }) {
     // Check if we're on the root path
     const isRoot = typeof window !== 'undefined' && window.location.pathname === '/';
     setIsRootPath(isRoot);
+
+    // Check if countdown was already shown in this session
+    if (typeof window !== 'undefined' && sessionStorage.getItem('countdownShown') === 'true') {
+      setCountdownEnded(true);
+      setShowLoadingComplete(true);
+    }
   }, []);
 
   const handleCountdownEnd = () => {
@@ -158,12 +164,16 @@ export default function SplashScreen({ children }) {
           <div
             className="relative min-h-screen flex items-center justify-center overflow-hidden w-full"
             style={{
+              background: 'linear-gradient(to bottom right, #0f172a, #1e293b, #000000)',
               backgroundImage: 'url(/stranger-things-loading.png)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
+              backgroundRepeat: 'no-repeat',
+              backgroundBlendMode: 'overlay'
             }}
           >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/60 z-0"></div>
 
 
             {/* Content Container */}
