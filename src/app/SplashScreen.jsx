@@ -51,7 +51,7 @@ function CountdownTimer({ onCountdownEnd }) {
     seconds: 0
   });
   const [isEnded, setIsEnded] = useState(false);
-  const [targetTime] = useState(() => new Date('2026-04-01T00:00:00').getTime()); // April 1, 2026 - Registration Opens
+  const [targetTime] = useState(() => new Date().getTime() + (1 * 60 * 1000)); // 1 minute from now
 
   useEffect(() => {
     const calculateTimeLeft = () => {
