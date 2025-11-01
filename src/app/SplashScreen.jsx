@@ -51,7 +51,7 @@ function CountdownTimer({ onCountdownEnd }) {
     seconds: 0
   });
   const [isEnded, setIsEnded] = useState(false);
-  const [targetTime] = useState(() => new Date().getTime() + (1 * 60 * 1000)); // 1 minute from now
+  const [targetTime] = useState(() => new Date().getTime() + (7* 1000)); // 1 minute from now
 
   useEffect(() => {
     const calculateTimeLeft = () => {
